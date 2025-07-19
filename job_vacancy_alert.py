@@ -31,7 +31,7 @@ def check_vacancy():
     # Ieškom Peterborough darbo
     try:
         element = WebDriverWait(driver, 15).until(
-            EC.visibility_of_element_located((By.XPATH, "//div[@data-test-component='StencilText' and contains(., 'Full Time')]"))
+            EC.visibility_of_element_located((By.XPATH, "//div[@data-test-component='StencilText' and contains(., 'job found')]"))
         )
         location = element.text
         print(f"Darbo skelbimas rastas: {location}")
@@ -40,7 +40,7 @@ def check_vacancy():
     except Exception as e:
         print("Darbo nerasta:", e)
         driver.quit()
-        return False, "Full Time"
+        return False, "job found"
 
 def send_alert(location):
     subject = f"Amazon darbas: {location}"
