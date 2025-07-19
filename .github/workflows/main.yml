@@ -1,11 +1,30 @@
-name: Testas
+name: Run Job Alert Script
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"  # kas 10 minučių
+  workflow_dispatch:        # leidžia rankiniu būdu paleisti
 
 jobs:
-  hello:
+  run-script:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Pasakyk labas
-      run: echo "Labas veikia!"
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Set secret env var
+      run: echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> $GITHUB_ENV
+
+    - name: Run script
+      run: python job_vacancy_alert.py
