@@ -1,5 +1,3 @@
-import os
-import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from selenium import webdriver
@@ -53,7 +51,7 @@ Sėkmės!"""
 
     sender_email = "d62926000@gmail.com"
     receiver_email = "d62926000@gmail.com"
-   password = os.getenv("EMAIL_PASSWORD")
+   password = getenv("EMAIL_PASSWORD")
 
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
