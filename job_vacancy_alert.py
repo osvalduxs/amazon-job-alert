@@ -40,7 +40,7 @@ def check_vacancy():
     except Exception as e:
         print("Darbo nerasta:", e)
         driver.quit()
-        return False, "Peterborough"
+        return False, "Full Time"
 
 def send_alert(location):
     subject = f"Amazon darbas: {location}"
