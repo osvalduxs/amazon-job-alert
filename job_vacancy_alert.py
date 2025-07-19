@@ -53,7 +53,7 @@ Sėkmės!"""
 
     sender_email = "d62926000@gmail.com"
     receiver_email = "d62926000@gmail.com"
-    password = "rongyw-rexpA9-gesbev"
+   password = os.getenv("EMAIL_PASSWORD")
 
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
