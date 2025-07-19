@@ -1,3 +1,5 @@
+import os
+import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from selenium import webdriver
@@ -26,32 +28,27 @@ def check_vacancy():
     except:
         pass
 
-    # Ieškom Peterborough darbo
+    # Tikrinam ar rodo "job found"
     try:
         element = WebDriverWait(driver, 15).until(
-            EC.visibility_of_element_located((By.XPATH, "//div[@data-test-component='StencilText' and contains(., 'join')]"))
+            EC.visibility_of_element_located((By.XPATH, "//h1[contains(text(), 'job found')]"))
         )
-        location = element.text
-        print(f"Darbo skelbimas rastas: {location}")
+        count_text = element.text.strip()
+        print("Rasta:", count_text)
         driver.quit()
-        return True, location
+        return True, count_text
     except Exception as e:
-        print("Darbo nerasta:", e)
+        print("Nerasta darbo:", e)
         driver.quit()
-        return False, "join"
+        return False, "0 jobs"
 
 def send_alert(location):
     subject = f"Amazon darbas: {location}"
-    body = f"""Sveiki,
-
-Rastas darbo skelbimas vietoje: {location}.
-Patikrink čia: https://www.jobsatamazon.co.uk/app#/jobSearch
-
-Sėkmės!"""
+    body = f"""Sveiki,\n\nRastas darbo skelbimas: {location}.\nPatikrink čia: https://www.jobsatamazon.co.uk/app#/jobSearch\n\nSėkmės!"""
 
     sender_email = "d62926000@gmail.com"
     receiver_email = "d62926000@gmail.com"
-   password = os.getenv("EMAIL_PASSWORD")
+    password = os.getenv("EMAIL_PASSWORD")
 
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
@@ -77,4 +74,4 @@ if __name__ == "__main__":
     if found:
         send_alert(location)
     else:
-        print(f"Nerasta darbo skelbimų vietoje {location}.")
+        print(f"Nerasta darbo skelbimų: {location}")
