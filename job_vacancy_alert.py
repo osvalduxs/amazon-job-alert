@@ -51,7 +51,7 @@ Sėkmės!"""
 
     sender_email = "d62926000@gmail.com"
     receiver_email = "d62926000@gmail.com"
-   password = getenv("EMAIL_PASSWORD")
+   password = os.getenv("EMAIL_PASSWORD")
 
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
